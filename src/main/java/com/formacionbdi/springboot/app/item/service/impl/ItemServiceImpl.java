@@ -18,8 +18,9 @@ import com.formacionbdi.springboot.app.item.service.IItemService;
 
 /**
  * The class ItemServiceImpl.
+ * Este service esta implementado con RestTemplate.
  */
-@Service(value = "itemServiceImpl")
+@Service(value = "serviceRestTemplate")
 public class ItemServiceImpl implements IItemService {
 
 	/**
