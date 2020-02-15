@@ -18,7 +18,7 @@ import com.formacionbdi.springboot.app.item.models.service.IItemService;
 public class ItemServiceImpl implements IItemService {
 
 	/**
-	 * The variable LOG.
+	 * The variable Log.
 	 */
 	private static final Log LOG = LogFactory.getLog(ItemServiceImpl.class);
 
