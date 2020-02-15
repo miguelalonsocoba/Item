@@ -1,4 +1,4 @@
-package com.formacionbdi.springboot.app.item.models.service;
+package com.formacionbdi.springboot.app.item.service;
 
 import java.util.List;
 
