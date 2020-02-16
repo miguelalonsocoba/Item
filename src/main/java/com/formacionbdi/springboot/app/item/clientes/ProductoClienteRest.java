@@ -15,7 +15,7 @@ import com.formacionbdi.springboot.app.item.models.Producto;
  * (springboot-servicio-producto). En el parametro url: idica la url del cual se
  * consumira la aplicacion Rest.
  */
-@FeignClient(name = "servicio-productos", url = "http://localhost:8001")
+@FeignClient(name = "servicio-productos")
 public interface ProductoClienteRest {
 
 	/**

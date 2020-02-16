@@ -35,4 +35,9 @@ public class Producto {
 	 */
 	private Date createAt;
 
+	/**
+	 * Parameter port.
+	 */
+	private Integer port;
+
 }
