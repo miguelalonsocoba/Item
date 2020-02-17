@@ -20,6 +20,7 @@ public class ItemController {
 	/**
 	 * The service.
 	 */
+//	@Qualifier(value = "serviceRestTemplate")
 	@Autowired
 	@Qualifier(value = "serviceFeign")
 	private IItemService itemService;
