@@ -75,6 +75,7 @@ public class ItemController {
 	 * @return list Item
 	 */
 	public List<Item> methodAlternativoListar() {
+		LOG.info("Method: methodAlternativoListas.");
 		List<Item> itemList = new ArrayList<>();
 		Item item = new Item();
 		Producto producto = new Producto();
