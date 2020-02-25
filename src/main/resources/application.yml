@@ -21,6 +21,8 @@ server:
 spring:
   application:
     name: servicio-items
+  banner: 
+    location: classpath:/message/banner.txt
 eureka:
   client:
     service-url:
