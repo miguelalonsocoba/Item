@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.formacionbdi.springboot.app.item.models.Producto;
+import com.formacionbdi.springboot.app.commons.models.entity.Producto;
 
 /**
  * The Interface ProductoClienteRest. Con la anotacion se define que esta
@@ -30,8 +30,7 @@ public interface ProductoClienteRest {
 	 */
 	@GetMapping(value = "/listar")
 	public List<Producto> listar();
-	
-	
+
 	/**
 	 * Obtener el listado productos. El parametro en la anotacion es el valor o
 	 * EndPoint del microservicio que queremos consumir.
@@ -40,26 +39,29 @@ public interface ProductoClienteRest {
 	 */
 	@GetMapping(value = "/ver/{id}")
 	public Producto detalle(@PathVariable Long id);
-	
+
 	/**
 	 * Crear un Producto.
+	 * 
 	 * @param producto
 	 * @return Producto
 	 */
 	@PostMapping(value = "/crear")
 	public Producto crear(@RequestBody Producto producto);
-	 
+
 	/**
 	 * Actualiza un producto.
+	 * 
 	 * @param producto
 	 * @param id
 	 * @return Producto
 	 */
 	@PutMapping(value = "/editar/{id}")
 	public Producto update(@RequestBody Producto producto, @PathVariable Long id);
-	
+
 	/**
 	 * Elimina un producto.
+	 * 
 	 * @param id
 	 */
 	@DeleteMapping(value = "/eliminar/{id}")

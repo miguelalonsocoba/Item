@@ -15,13 +15,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.formacionbdi.springboot.app.commons.models.entity.Producto;
 import com.formacionbdi.springboot.app.item.models.Item;
-import com.formacionbdi.springboot.app.item.models.Producto;
 import com.formacionbdi.springboot.app.item.service.IItemService;
 
 /**
- * The class ItemServiceImpl.
- * Este service esta implementado con RestTemplate.
+ * The class ItemServiceImpl. Este service esta implementado con RestTemplate.
  */
 @Service(value = "serviceRestTemplate")
 public class ItemServiceImpl implements IItemService {
@@ -57,18 +56,20 @@ public class ItemServiceImpl implements IItemService {
 		LOG.info("Method: findById(). Params-Value: " + id + ", " + cantidad);
 		Map<String, String> pathVariables = new HashMap<>();
 		pathVariables.put("id", id.toString());
-		Producto producto = clienteRest.getForObject("http://servicio-productos/ver/{id}", Producto.class, pathVariables);
+		Producto producto = clienteRest.getForObject("http://servicio-productos/ver/{id}", Producto.class,
+				pathVariables);
 		return new Item(producto, cantidad);
 	}
 
 	@Override
 	public Producto save(Producto producto) {
 		LOG.info("Method: save(). Param-Value: " + producto);
-		
+
 		HttpEntity<Producto> body = new HttpEntity<>(producto);
 		LOG.info("Se creo la entity de Producto. Se procede a consumir al microservicio.");
-		ResponseEntity<Producto> response = clienteRest.exchange("http://servicio-productos/crear", HttpMethod.POST, body, Producto.class);
-		
+		ResponseEntity<Producto> response = clienteRest.exchange("http://servicio-productos/crear", HttpMethod.POST,
+				body, Producto.class);
+
 		LOG.info("Se consumio correctamente el microservicio. Value: " + response);
 		return response.getBody();
 	}
@@ -76,15 +77,15 @@ public class ItemServiceImpl implements IItemService {
 	@Override
 	public Producto update(Producto producto, Long id) {
 		LOG.info("Method: update(). Param-Value: Producto " + producto + " ID: " + id);
-		
+
 		Map<String, String> pathVariables = new HashMap<String, String>();
 		pathVariables.put("id", id.toString());
-		
+
 		HttpEntity<Producto> bodyEntity = new HttpEntity<>(producto);
 		LOG.info("Se crea la entit de Producto. Se procede a consumir al microservicio.");
-		ResponseEntity<Producto> responseEntity = clienteRest.exchange("http://servicio-productos/editar/{id}", 
+		ResponseEntity<Producto> responseEntity = clienteRest.exchange("http://servicio-productos/editar/{id}",
 				HttpMethod.PUT, bodyEntity, Producto.class, pathVariables);
-		
+
 		LOG.info("Se consumio correctamente el microservicio. Value: " + responseEntity);
 		return responseEntity.getBody();
 	}
@@ -92,12 +93,12 @@ public class ItemServiceImpl implements IItemService {
 	@Override
 	public void delete(Long id) {
 		LOG.info("Method: delete(). Param-Value: " + id);
-		
+
 		HashMap<String, String> pathVariables = new HashMap<>();
 		pathVariables.put("id", id.toString());
-		
+
 		clienteRest.delete("http://servicio-productos/eliminar/{id}", pathVariables);
-		
+
 	}
 
 }
