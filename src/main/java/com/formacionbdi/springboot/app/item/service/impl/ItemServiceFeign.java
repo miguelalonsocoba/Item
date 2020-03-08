@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.formacionbdi.springboot.app.item.clientes.ProductoClienteRest;
 import com.formacionbdi.springboot.app.item.models.Item;
+import com.formacionbdi.springboot.app.item.models.Producto;
 import com.formacionbdi.springboot.app.item.service.IItemService;
 
 /**
@@ -51,6 +52,24 @@ public class ItemServiceFeign implements IItemService {
 	public Item findById(Long id, Integer cantidad) {
 		LOG.info("Method findById()");
 		return new Item(clienteFeign.detalle(id), cantidad);
+	}
+
+	@Override
+	public Producto save(Producto producto) {
+		LOG.info("Method: save(). Param-Value: " + producto);
+		return clienteFeign.crear(producto);
+	}
+
+	@Override
+	public Producto update(Producto producto, Long id) {
+		LOG.info("Method: update(). Param-Value: " + producto);
+		return clienteFeign.update(producto, id);
+	}
+
+	@Override
+	public void delete(Long id) {
+		LOG.info("Method: delete(). Param-Value: " + id);
+		clienteFeign.eliminar(id);
 	}
 
 }

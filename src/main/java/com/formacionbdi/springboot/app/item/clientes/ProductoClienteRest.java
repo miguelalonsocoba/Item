@@ -3,8 +3,12 @@ package com.formacionbdi.springboot.app.item.clientes;
 import java.util.List;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.formacionbdi.springboot.app.item.models.Producto;
 
@@ -36,5 +40,29 @@ public interface ProductoClienteRest {
 	 */
 	@GetMapping(value = "/ver/{id}")
 	public Producto detalle(@PathVariable Long id);
+	
+	/**
+	 * Crear un Producto.
+	 * @param producto
+	 * @return Producto
+	 */
+	@PostMapping(value = "/crear")
+	public Producto crear(@RequestBody Producto producto);
+	 
+	/**
+	 * Actualiza un producto.
+	 * @param producto
+	 * @param id
+	 * @return Producto
+	 */
+	@PutMapping(value = "/editar/{id}")
+	public Producto update(@RequestBody Producto producto, @PathVariable Long id);
+	
+	/**
+	 * Elimina un producto.
+	 * @param id
+	 */
+	@DeleteMapping(value = "/eliminar/{id}")
+	public void eliminar(@PathVariable Long id);
 
 }

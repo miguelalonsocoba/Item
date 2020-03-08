@@ -9,6 +9,9 @@ import java.util.stream.Collectors;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -56,6 +59,45 @@ public class ItemServiceImpl implements IItemService {
 		pathVariables.put("id", id.toString());
 		Producto producto = clienteRest.getForObject("http://servicio-productos/ver/{id}", Producto.class, pathVariables);
 		return new Item(producto, cantidad);
+	}
+
+	@Override
+	public Producto save(Producto producto) {
+		LOG.info("Method: save(). Param-Value: " + producto);
+		
+		HttpEntity<Producto> body = new HttpEntity<>(producto);
+		LOG.info("Se creo la entity de Producto. Se procede a consumir al microservicio.");
+		ResponseEntity<Producto> response = clienteRest.exchange("http://servicio-productos/crear", HttpMethod.POST, body, Producto.class);
+		
+		LOG.info("Se consumio correctamente el microservicio. Value: " + response);
+		return response.getBody();
+	}
+
+	@Override
+	public Producto update(Producto producto, Long id) {
+		LOG.info("Method: update(). Param-Value: Producto " + producto + " ID: " + id);
+		
+		Map<String, String> pathVariables = new HashMap<String, String>();
+		pathVariables.put("id", id.toString());
+		
+		HttpEntity<Producto> bodyEntity = new HttpEntity<>(producto);
+		LOG.info("Se crea la entit de Producto. Se procede a consumir al microservicio.");
+		ResponseEntity<Producto> responseEntity = clienteRest.exchange("http://servicio-productos/editar/{id}", 
+				HttpMethod.PUT, bodyEntity, Producto.class, pathVariables);
+		
+		LOG.info("Se consumio correctamente el microservicio. Value: " + responseEntity);
+		return responseEntity.getBody();
+	}
+
+	@Override
+	public void delete(Long id) {
+		LOG.info("Method: delete(). Param-Value: " + id);
+		
+		HashMap<String, String> pathVariables = new HashMap<>();
+		pathVariables.put("id", id.toString());
+		
+		clienteRest.delete("http://servicio-productos/eliminar/{id}", pathVariables);
+		
 	}
 
 }
